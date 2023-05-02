@@ -1,25 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
+import {useState} from "react";
+import { UserContext } from './UserContext';
+import { BrowserRouter as Router } from 'react-router-dom';
+import PublicRoutes from "./Routes/PublicRoutes";
+import ErrorBoundary from './ErrorBoundary';
 
 function App() {
+    const [user, setUser] = useState(null);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <ErrorBoundary>
+          <Router>
+          <UserContext.Provider value={{ user, setUser }}>
+                <div className="App">
+                  {/* Add your navigation, header, or other common components here */}
+
+                    <PublicRoutes />
+
+
+                  {/* Add your footer or other common components here */}
+                </div>
+          </UserContext.Provider>
+          </Router>
+      </ErrorBoundary>
   );
+
 }
 
 export default App;
